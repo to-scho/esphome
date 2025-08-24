@@ -43,7 +43,7 @@ void Jsnsr04tComponent::check_buffer_() {
 
   if (this->buffer_[3] == checksum) {
     uint16_t distance = encode_uint16(this->buffer_[1], this->buffer_[2]);
-    if (distance > 250) {
+    if (distance > 0) {
       float meters = distance / 1000.0f;
       ESP_LOGV(TAG, "Distance from sensor: %umm, %.3fm", distance, meters);
       this->publish_state(meters);
