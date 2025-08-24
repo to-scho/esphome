@@ -112,8 +112,8 @@ def validate_raw_data(value):
 
 def validate_rx_pin(value):
     value = pins.internal_gpio_input_pin_schema(value)
-    if CORE.is_esp8266 and value[CONF_NUMBER] >= 16:
-        raise cv.Invalid("Pins GPIO16 and GPIO17 cannot be used as RX pins on ESP8266.")
+    if CORE.is_esp8266 and value[CONF_NUMBER] >= 17:
+        raise cv.Invalid("Pin GPIO17 cannot be used as RX pins on ESP8266.")
     return value
 
 
