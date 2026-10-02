@@ -47,7 +47,7 @@ void Jsnsr04tComponent::check_buffer_() {
       this->publish_state(meters);
     } else {
       char hex_buf[format_hex_pretty_size(4)];
-      ESP_LOGW(TAG, "%s Invalid data read from sensor: %s", this->get_name().c_str(), 
+      ESP_LOGW(TAG, "%s Invalid data read from sensor: %s", this->get_name().c_str(),
                format_hex_pretty_to(hex_buf, this->buffer_.data(), this->buffer_.size()));
     }
   } else {
