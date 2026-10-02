@@ -30,7 +30,15 @@ void Jsnsr04tComponent::loop() {
 }
 
 void Jsnsr04tComponent::check_buffer_() {
-  uint8_t checksum = this->buffer_[0] + this->buffer_[1] + this->buffer_[2];
+  uint8_t checksum = 0;
+  switch (this->model_) {
+    case JSN_SR04T:
+      checksum = this->buffer_[0] + this->buffer_[1] + this->buffer_[2];
+      break;
+    case AJ_SR04M:
+      checksum = this->buffer_[1] + this->buffer_[2];
+      break;
+  }
   if (this->buffer_[3] == checksum) {
     uint16_t distance = encode_uint16(this->buffer_[1], this->buffer_[2]);
     if (distance > ((this->model_ == AJ_SR04M) ? 0 : 0)) {
