@@ -33,17 +33,17 @@ void Jsnsr04tComponent::check_buffer_() {
   uint8_t checksum = this->buffer_[0] + this->buffer_[1] + this->buffer_[2];
   if (this->buffer_[3] == checksum) {
     uint16_t distance = encode_uint16(this->buffer_[1], this->buffer_[2]);
-    if (distance > ((this->model_ == AJ_SR04M) ? 200 : 250)) {
+    if (distance > ((this->model_ == AJ_SR04M) ? 0 : 0)) {
       float meters = distance / 1000.0f;
       ESP_LOGV(TAG, "Distance from sensor: %umm, %.3fm", distance, meters);
       this->publish_state(meters);
     } else {
       char hex_buf[format_hex_pretty_size(4)];
-      ESP_LOGW(TAG, "Invalid data read from sensor: %s",
+      ESP_LOGW(TAG, "%s Invalid data read from sensor: %s", this->get_name().c_str(), 
                format_hex_pretty_to(hex_buf, this->buffer_.data(), this->buffer_.size()));
     }
   } else {
-    ESP_LOGW(TAG, "checksum failed: %02x != %02x", checksum, this->buffer_[3]);
+    ESP_LOGW(TAG, "%s checksum failed: %02x != %02x", this->get_name().c_str(), checksum, this->buffer_[3]);
   }
   this->buffer_.clear();
 }
